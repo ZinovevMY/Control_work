@@ -1,10 +1,9 @@
 class UserInterface:
 
+    def __init__(self):
+        pass
 
-    
-
-
-    def run():
+     def run(self):
         print('-----------')
         print('Мои заметки')
         print('-----------')
