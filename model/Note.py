@@ -21,6 +21,9 @@ class Note:
     def get_date(self):
         return self.__date
 
+    def set_id(self, id):
+        self.__id = id
+
     def set_text(self, note_text):
         self.__text = note_text
 
