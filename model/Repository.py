@@ -6,7 +6,7 @@ from model.Fileoperations import Fileoperations
 
 class Repository:
 
-    def __init__(self, file:Fileoperations, mapper:Notemapper):
+    def __init__(self, file: Fileoperations, mapper: Notemapper):
         self.__file = file
         self.__mapper = mapper
 
@@ -19,7 +19,7 @@ class Repository:
 
         return all_notes
 
-    def overwrite_all_notes(self, notes:list[Note]):
+    def overwrite_all_notes(self, notes: list[Note]):
         input_data = []
         for note in notes:
             line_in_file = self.__mapper.save_map(note)
@@ -27,7 +27,7 @@ class Repository:
 
         self.__file.overwrite_file(input_data)
 
-    def add_new_note(self, new_note:Note):
+    def add_new_note(self, new_note: Note):
         all_notes = self.read_all_notes()
         max_value = 0
         for note in all_notes:
