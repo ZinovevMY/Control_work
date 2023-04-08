@@ -1,55 +1,44 @@
 from datetime import *
 from model.Note import Note
 from model.Repository import Repository
-from view.Editnote import Editnote
 
 
 class Controller:
     def __init__(self, note_repo: Repository):
         self.__note_repo = note_repo
 
-    @classmethod
-    def id_validate(cls, id: str):
-        try:
-            int_id = int(id)
-            if int_id>= 0:
-                return True
-        except:
-            print("Неверный формат ID!")
-            return False
+    def save_note(self, note: Note):
+        self.__note_repo.add_new_note(note)
 
+    def read_note(self, note_id: str):
+        notes = self.__note_repo.read_all_notes()
+        note = self.search_note(note_id, notes)
 
-    @staticmethod
-    def search_by_id(note_id: str, notes: list[Note]):
-        for note in notes:
-            if note_id == note.get_id():
-                return note
-
-    def get_note_id(self):
-        return input('Введите ID заметки: ')
+    def search_note(self, note_id: str, notes: list[Note]):
+        for item in notes:
+            if item.get_id() == note_id:
+                return item
+        print("Записи с таким ID не найдено!")
 
     def read_all_notes(self):
         return self.__note_repo.read_all_notes()
 
-    def add_new_note(self):
-        note =
-        self.__note_repo.add_new_note()
-
-    def overwrite_all_notes(self, notes: list[Note]):
+    def update_note(self, note_id: str, new_note: Note):
+        notes = self.read_all_notes()
+        note = self.search_note(note_id, notes)
+        note.set_header(new_note.get_header())
+        note.set_text(new_note.get_text())
+        note.set_date(new_note.get_date())
         self.__note_repo.overwrite_all_notes(notes)
 
-    def get_note_by_id(self):
-        notes = self.read_all_notes()
-        note_id = self.get_note_id()
-        if self.id_validate(note_id):
-            return self.search_by_id(note_id, notes)
+    def delete_note(self, note_id: str, notes: list[Note]):
+        for item in notes:
+            if note_id == item.get_id():
+                notes.remove(item)
+                break
 
-    def delete_note_by_id(self):
+    def delete_all_notes(self):
         notes = self.read_all_notes()
-        note_id = self.get_note_id()
-        if self.id_validate(note_id):
-            for note in notes:
-                if note_id == note.get_id():
-                    notes.remove(note)
-            self.overwrite_all_notes(notes)
-
+        for item in notes:
+            notes.remove(item)
+        self.__note_repo.overwrite_all_notes(notes)
