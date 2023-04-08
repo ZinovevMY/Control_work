@@ -23,12 +23,12 @@ class Controller:
     def read_all_notes(self):
         return self.__note_repo.read_all_notes()
 
-    def update_note(self, note_id: str, new_note: Note):
+    def update_note(self, note_id: str, new_note: list):
         notes = self.read_all_notes()
         note = self.search_note(note_id, notes)
-        note.set_header(new_note.get_header())
-        note.set_text(new_note.get_text())
-        note.set_date(new_note.get_date())
+        note.set_header(new_note[0])
+        note.set_text(new_note[1])
+        note.set_date(new_note[2])
         self.__note_repo.overwrite_all_notes(notes)
 
     def delete_note(self, note_id: str, notes: list[Note]):

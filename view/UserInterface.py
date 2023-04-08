@@ -28,7 +28,7 @@ class UserInterface:
                     quit()
                 case 1:
                     new_note = self.input_note()
-                    self.__controller.add_new_note(new_note)
+                    self.__controller.save_note(new_note)
                 case 2:
                     notes = self.__controller.read_all_notes()
                     self.__controller.show_all_notes(notes)
