@@ -31,11 +31,17 @@ class UserInterface:
                     new_note = self.input_note()
                     self.__controller.save_note(new_note)
                 case 2:
-                    notes = self.__controller.read_all_notes()
-                    self.__controller.show_all_notes(notes)
+                    self.show_all_notes()
                 case 3:
-                    self.__controller.read_all_notes()
-                    note = self.__controller.search_by_id()
+                    self.show_all_notes()
+                    self.edit_note()
+                case 4:
+                    self.read_note()
+                case 5:
+                    self.show_all_notes()
+                    self.delete_note()
+                case 6:
+                    self.delete_all_notes()
 
     def input_note(self):
         header = input("Тема заметки: ")
@@ -65,4 +71,7 @@ class UserInterface:
         self.show_all_notes()
         id = input("Введите ID удаляемой заметки: ")
         self.__controller.delete_note(id)
+
+    def delete_all_notes(self):
+        self.__controller.delete_all_notes()
 
