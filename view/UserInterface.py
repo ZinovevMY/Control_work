@@ -45,7 +45,7 @@ class UserInterface:
 
     def input_note(self):
         header = input("Тема заметки: ")
-        text = input("Текст заметки")
+        text = input("Текст заметки: ")
         dtm = datetime.now()
         return Note(header=header, text=text, date=dtm)
 
@@ -60,7 +60,7 @@ class UserInterface:
     def show_all_notes(self):
         notes = self.__controller.read_all_notes()
         for note in notes:
-            print(note.__str__())
+            print(note.__str__() + "\n")
 
     def edit_note(self):
         self.show_all_notes()
