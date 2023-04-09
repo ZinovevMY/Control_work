@@ -40,3 +40,15 @@ class Repository:
 
         all_notes.append(new_note)
         self.overwrite_all_notes(all_notes)
+
+    def save_note(self, notes: list[Note]):
+        all_notes = []
+        for item in notes:
+            all_notes.append(self.__mapper.save_map(item))
+        self.__file.overwrite_file(all_notes)
+
+    def delete_note(self, note_id: str, notes: list[Note]):
+        for note in notes:
+            if note.get_id() == note_id:
+                notes.remove(note)
+                break

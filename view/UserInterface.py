@@ -1,5 +1,6 @@
 from controller.Controller import Controller
 from datetime import *
+from model.Note import Note
 
 class UserInterface:
 
@@ -36,13 +37,32 @@ class UserInterface:
                     self.__controller.read_all_notes()
                     note = self.__controller.search_by_id()
 
-
     def input_note(self):
-        new_note = []
         header = input("Тема заметки: ")
         text = input("Текст заметки")
         dtm = datetime.now()
-        new_note.append(header)
-        new_note.append(text)
-        new_note.append(dtm)
-        return new_note
+        return Note(header=header, text=text, date=dtm)
+
+    def create_note(self):
+        return self.__controller.save_note(self.input_note())
+
+    def read_note(self):
+        id = input("Введите ID заметки: ")
+        note = self.__controller.read_note(id)
+        print(note.__str__())
+
+    def show_all_notes(self):
+        notes = self.__controller.read_all_notes()
+        for note in notes:
+            print(note.__str__())
+
+    def edit_note(self):
+        self.show_all_notes()
+        id = input("Введите ID редактируемой заметки: ")
+        self.__controller.update_note(id, self.input_note())
+
+    def delete_note(self):
+        self.show_all_notes()
+        id = input("Введите ID удаляемой заметки: ")
+        self.__controller.delete_note(id)
+
