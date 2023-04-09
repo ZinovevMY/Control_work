@@ -65,7 +65,10 @@ class UserInterface:
     def edit_note(self):
         self.show_all_notes()
         id = input("Введите ID редактируемой заметки: ")
-        self.__controller.update_note(id, self.input_note())
+        try:
+            self.__controller.update_note(id, self.input_note())
+        except:
+            print("Неверный ID!")
 
     def delete_note(self):
         self.show_all_notes()
